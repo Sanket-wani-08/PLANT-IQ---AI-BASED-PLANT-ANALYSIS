@@ -1,0 +1,78 @@
+/* ===== GLOBAL ===== */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(to right, #d4efdf, #eafaf1);
+}
+
+/* ===== WRAPPER ===== */
+.auth-wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== BOX ===== */
+.auth-box {
+    background: white;
+    padding: 35px;
+    width: 350px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* ===== TEXT ===== */
+.auth-box h2 {
+    color: #1e8449;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+/* ===== INPUT ===== */
+.auth-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+}
+
+.auth-box input:focus {
+    border-color: #27ae60;
+}
+
+/* ===== BUTTON ===== */
+.auth-box button {
+    width: 100%;
+    padding: 12px;
+    background: #27ae60;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-box button:hover {
+    background: #1e8449;
+}
+
+/* ===== LINK ===== */
+.switch {
+    margin-top: 15px;
+}
+
+.switch a {
+    color: #27ae60;
+    text-decoration: none;
+    font-weight: bold;
+}

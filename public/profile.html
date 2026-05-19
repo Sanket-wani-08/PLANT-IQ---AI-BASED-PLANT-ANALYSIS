@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Plant IQ</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: radial-gradient(circle at 50% 50%, #f4fbf7 0%, #e8f5e9 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: #1b5e20;
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(27, 94, 32, 0.15);
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s, transform 0.1s;
+        }
+
+        .nav-links a:hover {
+            color: #a5d6a7;
+        }
+
+        #userLink {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: background 0.2s;
+        }
+
+        #userLink:hover {
+            background: rgba(255, 255, 255, 0.25);
+            color: #fff;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 600px;
+            margin: 50px auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(27, 94, 32, 0.08);
+            border: 1px solid rgba(165, 214, 167, 0.2);
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: #eafaf1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            color: #27ae60;
+            margin: 0 auto 20px auto;
+            border: 3px solid #27ae60;
+        }
+
+        h2 {
+            color: #145a32;
+            margin: 0 0 10px 0;
+        }
+
+        .email-text {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            background: #fdfefe;
+            border: 1px solid #eafaf1;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-details {
+            text-align: left;
+            margin-bottom: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+
+        .detail-value {
+            color: #2c3e50;
+        }
+
+        .btn-action {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-action:hover {
+            background: #1e8449;
+        }
+
+        .footer {
+            background: #145a32;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+
+        #loading {
+            padding: 40px;
+            font-size: 18px;
+            color: #1e8449;
+        }
+    </style>
+    <script>
+        if (!localStorage.getItem("token")) {
+            window.location.href = "/login.html";
+        }
+    </script>
+</head>
+<body>
+
+    <div class="navbar">
+        <h2>🌿 Plant IQ</h2>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/history">History</a>
+            <a href="/profile">Profile</a>
+            <a href="/profile" id="userLink" style="font-weight: bold; color: #d4efdf; display: inline-flex; align-items: center; gap: 5px;">
+                <i class="fas fa-user-circle"></i> <span id="userGreeting"></span>
+            </a>
+            <a href="#" id="logoutBtn" style="color: #fadbd8;">Logout</a>
+        </div>
+    </div>
+
+    <div class="container" id="profileContainer">
+        <div id="loading">
+            <i class="fas fa-spinner fa-spin"></i> Loading profile...
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 Plant IQ | Built with ❤️ by Sanket</p>
+    </div>
+
+    <script>
+        // Display greeting
+        const username = localStorage.getItem("user");
+        if (username) {
+            document.getElementById("userGreeting").textContent = `Hi, ${username}`;
+        }
+
+        // Logout
+        document.getElementById("logoutBtn").addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "/login.html";
+        });
+
+        const profileContainer = document.getElementById("profileContainer");
+
+        async function loadProfile() {
+            try {
+                // Fetch profile info
+                const profileRes = await fetch("/api/profile", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": localStorage.getItem("token")
+                    }
+                });
+
+                if (profileRes.status === 401) {
+                    localStorage.removeItem("token");
+                    window.location.href = "/login.html";
+                    return;
+                }
+
+                const user = await profileRes.json();
+
+                // Fetch scan history count
+                const historyRes = await fetch("/api/history", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": localStorage.getItem("token")
+                    }
+                });
+                const historyData = await historyRes.json();
+                const totalScans = historyData.length;
+
+                const joinDate = user.createdAt ? new Date(user.createdAt).toLocaleDateString(undefined, {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                }) : new Date(parseInt(user._id.substring(0, 8), 16) * 1000).toLocaleDateString(undefined, {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                });
+
+                profileContainer.innerHTML = `
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h2 id="profileName">${user.name}</h2>
+                    <p class="email-text" id="profileEmail">${user.email}</p>
+
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">${totalScans}</div>
+                            <div class="stat-label">Total Scans</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${totalScans > 0 ? new Date(historyData[0].createdAt).toLocaleDateString() : 'N/A'}</div>
+                            <div class="stat-label">Last Scan</div>
+                        </div>
+                    </div>
+
+                    <div class="profile-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Account ID</span>
+                            <span class="detail-value">${user._id}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date Joined</span>
+                            <span class="detail-value">${joinDate}</span>
+                        </div>
+                    </div>
+
+                    <a href="/" class="btn-action">
+                        <i class="fas fa-search"></i> New Scan
+                    </a>
+                `;
+
+            } catch (err) {
+                console.error("Error loading profile:", err);
+                profileContainer.innerHTML = `
+                    <div style="color: #e74c3c; padding: 20px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 10px;"></i>
+                        <h3>Failed to load profile details</h3>
+                        <p>${err.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize
+        loadProfile();
+    </script>
+</body>
+</html>
